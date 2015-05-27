@@ -1,28 +1,19 @@
 from flask import Flask, render_template, request, redirect, url_for
 from flask.ext.sqlalchemy import SQLAlchemy
-
+from datetime import datetime
+import pandas
 
 app = Flask(__name__)
-app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:////tmp/data.db'
-db = SQLAlchemy(app)
-
-
-class DataPt(db.Model):
-    id = db.Column(db.Integer, primary_key=True)
-    datapt = db.Column(db.String(80), unique=True)
-
-    def __init__(self, datapt):
-        self.datapt = datapt
-
-    def __repr__(self):
-        return 'DataPt %r' % self.datapt
-
-db.create_all()
+try:
+    posts = pandas.read_csv("static/posts.csv")
+except ValueError:
+    posts = pandas.DataFrame()
+current_post = pandas.DataFrame(index=[datetime.now()])
 
 
 @app.route('/')
 def home():
-    return "Hello, Worffghld!"  # return a string
+    return redirect('/welcome')
 
 
 @app.route('/welcome')
@@ -51,16 +42,18 @@ def secondpage():
         return render_template('secondpage.html')  # render a template
     elif request.method == 'POST':
         if request.form['datapt'] is not None:
-            db.session.add(DataPt(request.form['datapt']))
-            db.session.commit()
-            print DataPt
-            print DataPt.query.all()
-            return render_template('secondpage.html',
-                                   data=DataPt.query.all())
+            global current_post
+            current_post['Post'] = request.form['datapt']
+            return redirect('/exit')
         else:
             error = 'Bad request: '+repr(request.form)
             return render_template('secondpage.html',
                                    error=error)
+
+
+@app.route('/showdata')
+def showdata():
+    return render_template('showdata.html', data=posts.values[:, 0])
 
 
 @app.route('/login', methods=['GET', 'POST'])
@@ -74,6 +67,15 @@ def login():
             return redirect('/')
     return render_template('login.html', error=error)
 
-# start the server with the 'run()' method
+
+@app.route('/exit')
+def exit():
+    global posts
+    global current_post
+    posts = pandas.concat([posts, current_post])
+    posts.to_csv("static/posts.csv")
+    return redirect('/showdata')
+
+
 if __name__ == '__main__':
     app.run(debug=True)
