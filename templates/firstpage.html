@@ -1,0 +1,33 @@
+<html>
+  <head>
+    <title>First Page</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  </head>
+  <body>
+    <div class="container">
+      <p>Study this diagram and try to memorize the locations of the things in the rooms:</p>
+      <img src={{ image_source }} alt="Image goes here">
+      <p id="timer">  </p>
+      <p>seconds remaining</p>
+      <form id="posting-form" action="" method="POST">
+  <input type="hidden" name="continue" value="true">
+</form>
+      <script>
+      var t = 60;
+      var timer = setInterval(function(){writeTime(t); t--;},1000);
+      function writeTime(t){
+        document.getElementById("timer").innerHTML = t;
+        if(t == 0){
+          clearInterval(timer);
+          form = document.getElementById("posting-form");
+          form.submit();
+        }
+      }
+
+      </script>
+      {% if error %}
+        <p class="error"><strong>Error:</strong> {{ error }}
+      {% endif %}
+    </div>
+  </body>
+</html>
