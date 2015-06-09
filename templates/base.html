@@ -1,0 +1,20 @@
+<html>
+  <head>
+    {% block inhead %}
+    {% endblock %}
+    <style>
+    h1 {text-align:center;}
+    p {text-align:center;}
+    </style>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  </head>
+  <body>
+    <div class="container">
+      {% block inbody %}
+      {% endblock %}
+      {% if error %}
+        <p class="error"><strong>Error:</strong> {{ error }}
+      {% endif %}
+    </div>
+  </body>
+</html>

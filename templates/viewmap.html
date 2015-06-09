@@ -1,0 +1,26 @@
+{% extends "base.html" %}
+{% block inhead %}
+    <title>View Map</title>
+{% endblock %}
+{% block inbody %}
+      <p>Study this diagram and try to memorize the locations of the things in the rooms:</p>
+      <img src={{ image_source }} alt="Image goes here">
+      <p id="timer"> 60 </p>
+      <p>seconds remaining</p>
+      <form id="posting-form" action="" method="POST">
+  <input type="hidden" name="continue" value="true">
+</form>
+      <script>
+      var t = 59;
+      var timer = setInterval(function(){writeTime(t); t--;},1000);
+      function writeTime(t){
+        document.getElementById("timer").innerHTML = t;
+        if(t == 0){
+          clearInterval(timer);
+          form = document.getElementById("posting-form");
+          form.submit();
+        }
+      }
+
+      </script>
+{% endblock %}

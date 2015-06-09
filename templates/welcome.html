@@ -1,18 +1,15 @@
-<!DOCTYPE html>
-<html>
-  <head>
+{% extends "base.html" %}
+{% block inhead %}
     <title>Welcome</title>
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <style>
-h1 {text-align:center;}
-p {text-align:center;}
-</style>
-  </head>
-  <body>
-    <div class="container">
+{% endblock %}
+{% block inbody %}
       <h1>Welcome to the Experiment!</h2>
       <br>
-      <a href={{url_for("firstpage")}}>Begin</a>
-    </div>
-  </body>
-</html>
+       <form action="" method="POST">
+        <input type="radio" name="anger" value="0">Not Angry
+        <br>
+        <input type="radio" name="anger" value="1">Angry
+        <br>
+        <input type="submit" value="Begin">
+      </form> 
+{% endblock %}

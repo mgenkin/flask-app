@@ -1,0 +1,30 @@
+{% extends "base.html" %}
+{% block inhead %}
+    <title>
+      {% if score == "10" %}
+      Congratulations!
+      {% else %}
+      Try Again!
+      {% endif %}
+    </title>
+{% endblock %}
+{% block inbody %}
+
+      <h3> {% if score == "10" %}
+        Congratulations! You scored {{score}} out of 10. Just one more perfect score and you can move on!
+        {% else %}
+        You scored {{score}} out of 10.  Please try again.
+        {% endif %}
+      </h3>
+      <form id="redirect" action=
+                {% if passed %}
+                {{ url_for("story") }}
+                {% else %}
+                {{ url_for("memorytest") }}
+                {% endif %}
+                >
+      <input type="submit" value="Continue">
+      </form>
+
+
+{% endblock %}
