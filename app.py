@@ -23,6 +23,8 @@ class SessionInfo():
         self.task_path = -1
         self.anger = None
         self.question_num = 0
+        self.last_score = -1
+        self.story_num = ""
     def __repr__(self):
         return (str(self.data)+" data\n"+
                 str(self.current_subject)+" current subject\n"+
@@ -125,29 +127,15 @@ def memorytest():
 
 
 
-@app.route('/congrats')
-def congrats():
-    return render_template('congrats.html')
-
-
-@app.route('/secondpage', methods=['GET', 'POST'])
-def secondpage():
-    if request.method == 'GET':
-        return render_template('secondpage.html')  # render a template
-    elif request.method == 'POST':
-        if request.form['datapt'] is not None:
-            global current_post
-            current_post['Post'] = request.form['datapt']
-            return redirect('/exit')
-        else:
-            error = 'Bad request: '+repr(request.form)
-            return render_template('secondpage.html',
-                                   error=error)
-
 @app.route('/story')
 def story():
     global info
-    story_text = open('static/path'+str(info.task_path)+'/story.txt').read()
+    if (os.path.isfile('static/path'+str(info.task_path)+'/story'+str(info.story_num)+'.txt')):
+        story_text = open('static/path'+str(info.task_path)+'/story'+str(info.story_num)+'.txt').read()
+    else:
+        exit()
+        return redirect('/')
+    info.story_num += 1
     return render_template('story.html', story_text=story_text)
 
 @app.route('/sameroom', methods=['GET', 'POST'])
@@ -156,7 +144,7 @@ def sameroom():
         use_sameroom_info(request.form)
         exit()
         return redirect('/')
-    return render_template('sameroom.html', )
+    return render_template('sameroom.html', choices=["onion", "pizza"], correct_ans=0 )
 
 
 

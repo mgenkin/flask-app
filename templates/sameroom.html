@@ -1,0 +1,27 @@
+{% extends "base.html" %}
+{% block inhead %}
+    <title>Memory Test</title>
+{% endblock %}
+{% block inbody %}
+      <h4>Are {{ choice[0] }} and {{ choice[1] }} in the same room?</h4>
+      <form name="answerform" action="" method="POST">
+        <input type="radio" value="0" name="gr"> No
+        <br>
+        <input type="radio" value="1" name="gr"> Yes
+        <br>
+        <input type="hidden" name="correctness" value="wrong">
+        <br>
+        
+      </form> 
+      <input id="sub" type="button" value="Submit" onclick="checkAnswer()" >
+      <script>
+      
+      function checkAnswer() {
+        var x = document.forms["answerform"]["gr"].value;
+        if(x == ""+{{ correct_ans }}){
+          document.forms["answerform"]["correctness"].value = "correct";
+        }
+        document.forms["answerform"].submit();
+      }
+      </script>
+{% endblock %}

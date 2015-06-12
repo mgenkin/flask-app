@@ -6,5 +6,7 @@
       <h1>Storytime:</h2>
       <br>
        <h4> {{story_text}}</h4>
+      <form action={{ url_for("sameroom") }}>
+        <input type="submit" value="Question"
       </form> 
 {% endblock %}

@@ -10,12 +10,14 @@
 {% endblock %}
 {% block inbody %}
 
-      <h3> {% if score == "10" %}
+      <h4> {% if score == "10" and passed %}
+        Congratulations! You scored {{score}} out of 10. Now time for a story.
+        {% elif score == 10 %}
         Congratulations! You scored {{score}} out of 10. Just one more perfect score and you can move on!
         {% else %}
         You scored {{score}} out of 10.  Please try again.
         {% endif %}
-      </h3>
+      </h4>
       <form id="redirect" action=
                 {% if passed %}
                 {{ url_for("story") }}
