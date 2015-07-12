@@ -18,13 +18,17 @@ class SessionInfo():
         else:
             self.room_lists = [["cheddar", "swiss", "provolone", "havarti", "brie"], ["iris", "tulip", "rose", "dandelion", "daffodil"]]
             #raise Exception("Fatal Error: room dictionaries are missing")
+        if(os.path.isfile("static/breaks_in_story.txt")):
+            self.breaks_in_story = [line.strip("\n").split(",") for line in open("static/breaks_in_story.txt","rb").readlines()]
+        else:
+            raise Exception("Fatal Error: breaks_in_story.txt is missing")
         self.test_num = 0
         self.current_score = 0
         self.task_path = -1
         self.anger = None
         self.question_num = 0
         self.last_score = -1
-        self.story_num = ""
+        self.story_num = 1
     def __repr__(self):
         return (str(self.data)+" data\n"+
                 str(self.current_subject)+" current subject\n"+
@@ -32,7 +36,8 @@ class SessionInfo():
                 str(self.current_score)+" score\n"+
                 str(self.task_path)+" path\n"+
                 str(self.anger)+" anger\n"+
-                str(self.question_num)+" question")
+                str(self.question_num)+" question"+
+                str(self.breaks_in_story)+" breaks")
 
 app = Flask(__name__)
 info = SessionInfo()
@@ -70,7 +75,13 @@ def use_memory_test_info(form):
             passed = True
         info.last_score = info.current_score
         info.current_score = 0 
-    return (passed, finished)
+    return (True, True) #(passed, finished)
+
+
+def make_sameroom_test(part):
+    #todo get the choices and correct answer
+    
+    return redirect('/sameroom')
 
 
 def make_memory_test():
@@ -85,6 +96,14 @@ def make_memory_test():
     choices[correct_ans] = img_name
     return render_template('memorytest.html',
                                image_source='static/path'+str(info.task_path)+'/images/'+img_name+'.jpg', choices=choices, correct_ans=correct_ans)
+
+def make_story(part):
+    if (os.path.isfile('static/path'+str(info.task_path)+'/story'+str(part)+'.txt')):
+        story_text = open('static/path'+str(info.task_path)+'/story'+str(part)+'.txt').read()
+        return render_template('story.html', story_text=story_text)
+    else:
+        exit()
+        return redirect('/')
 
 @app.route('/')
 def home():
@@ -120,31 +139,31 @@ def memorytest():
     if request.method == 'POST':
         passed, finished = use_memory_test_info(request.form)
         if passed and finished:
-            return render_template('tryagain.html', score=str(info.last_score), passed="true")
+            return render_template('tryagain.html', score=str(info.last_score), passed="true", part="1")
         if finished:
             return render_template('tryagain.html', score=str(info.last_score), passed=None)
     return make_memory_test()
 
 
 
-@app.route('/story')
-def story():
+@app.route('/story<int:part>')
+def story(part):
     global info
-    if (os.path.isfile('static/path'+str(info.task_path)+'/story'+str(info.story_num)+'.txt')):
-        story_text = open('static/path'+str(info.task_path)+'/story'+str(info.story_num)+'.txt').read()
+    print info
+    if str(part) in info.breaks_in_story[info.task_path]:
+        print "making sameroom test"
+        return make_sameroom_test(part)
     else:
-        exit()
-        return redirect('/')
-    info.story_num += 1
-    return render_template('story.html', story_text=story_text)
+        print "making story"
+        return make_story(part)
 
 @app.route('/sameroom', methods=['GET', 'POST'])
 def sameroom():
     if request.method == 'POST':
         use_sameroom_info(request.form)
-        exit()
-        return redirect('/')
-    return render_template('sameroom.html', choices=["onion", "pizza"], correct_ans=0 )
+        info.breaks_in_story[info.task_path].remove(request.form['part'])
+        return redirect('/story'+request.form['part'])
+    return render_template('sameroom.html', choices=["onion", "pizza"], correct_ans="yes", part=1)
 
 
 
