@@ -1,0 +1,22 @@
+{% extends "base.html" %}
+{% block inhead %}
+    <title>
+      {% if second_time_around %}
+      Thank You
+      {% else %}
+      Continue
+      {% endif %}
+    </title>
+{% endblock %}
+{% block inbody %}
+
+      <h4> {% if second_time_around %}
+        Thank you for completing our experiment!
+        {% else %}
+        You've finished the first task.  Continue to the second:
+        <a href="{{ url_for('map')}}">
+          Continue
+        </a>
+        {% endif %}
+      </h4>
+{% endblock %}

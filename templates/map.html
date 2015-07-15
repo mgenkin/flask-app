@@ -7,8 +7,7 @@
       <img src={{ img_src }} alt="Image goes here">
       <p id="timer"> 60 </p>
       <p>seconds remaining</p>
-      <form id="posting-form" action="{{ url_for() }}" method="POST">
-        <input type="hidden" name="continue" value="true">
+      <form id="posting-form" action="{{ url_for('learn') }}" method="GET">
       </form>
       <script>
       var t = 4 ; //change to 59 before submitting

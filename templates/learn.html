@@ -1,0 +1,33 @@
+{% extends "base.html" %}
+{% block inhead %}
+    <title>Memory Test</title>
+{% endblock %}
+{% block inbody %}
+      <h1>What was here?</h1>
+      <img src={{ img_src }} alt="Image goes here">
+      <form id="answerform" name="answerform" action="" method="POST">
+        <input type="button" value="{{ choices[0] }}" onclick="stop(0)" >
+        <br>
+        <input type="button" value="{{ choices[1] }}" onclick="stop(1)" >
+        <br>
+        <input type="button" value="{{ choices[2] }}" onclick="stop(2)" > 
+        <br>
+        <input type="button" value="{{ choices[3] }}" onclick="stop(3)" > 
+        <br>
+        <input id="RT" name="RT" type="hidden" value="">
+        <input id="answer" name="answer" type="hidden" value="">
+      </form> 
+      <script>
+      var startTime
+      function start(){
+        startTime = new Date().getTime();
+      }
+      function stop(ans){
+        var letters = ["A", "B", "C", "D"]
+        var endTime = new Date().getTime()
+        document.getElementById("RT").value = (endTime-startTime)
+        document.getElementById("answer").value = letters[ans]
+        document.getElementById("answerform").submit()
+      }
+      </script>
+{% endblock %}

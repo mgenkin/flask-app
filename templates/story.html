@@ -3,21 +3,33 @@
     <title>Welcome</title>
 {% endblock %}
 {% block inbody %}
+      {% if is_question %}
+        <h1>Are {{ probes[0] }} and {{ probes[1] }} in the same room?</h1>
+      <form id="answerform" name="answerform" action="" method="POST">
+        <input type="button" value="Y" onclick="stop(0)"> Yes
+        <br>
+        <input type="button" value="N" onclick="stop(1)"> No
+        <br>
+        <input id="RT" name="RT" type="hidden" value="">
+        <input id="answer" name="answer" type="hidden" value="">
+      </form> 
+      <script>
+        var startTime
+        function start(){
+          startTime = new Date().getTime();
+        }
+        function stop(ans){
+          letters = ["Y", "N"]
+          var endTime = new Date().getTime()
+          document.getElementById("RT").value = (endTime-startTime)
+          document.getElementById("answer").value = letters[ans]
+          document.getElementById("answerform").submit()
+        }
+      </script>
+      {% else %}
       <h1>Storytime:</h2>
       <br>
        <h4> {{story_text}}</h4>
-      <form id="next-form" action="">
-      </form>
-     <input type="button" value="Next" onclick="nextPage()">
-      <script>
-      function nextPage(){
-        var pgUrl = document.URL;
-        var num = pgUrl.substring(pgUrl.length-2,pgUrl.length).match("[0-9]+")[0];
-        num++;
-        num = String(num);
-        document.getElementById("next-form").action = pgUrl.substring(0, pgUrl.length-num.length)+num;
-        document.getElementById("next-form").submit();
-      }
-
-      </script>
+       <a href="{{ url_for('story') }}"> Continue </a>
+      {% endif %}
 {% endblock %}

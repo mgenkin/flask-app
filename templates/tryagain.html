@@ -1,7 +1,7 @@
 {% extends "base.html" %}
 {% block inhead %}
     <title>
-      {% if score == "10" %}
+      {% if score == 10 %}
       Congratulations!
       {% else %}
       Try Again!
@@ -10,32 +10,23 @@
 {% endblock %}
 {% block inbody %}
 
-      <h4> {% if score == "10" and passed %}
-        Congratulations! You scored {{score}} out of 10. Now time for a story.
-        {% elif score == "10" %}
+      <h4> {% if score == 10 and passed %}
+        Congratulations! You scored {{score}} out of 10. Continue to the next task.
+      <a href="{{ url_for('story')}}">
+        Continue
+      </a>
+        {% elif score == 10 %}
         Congratulations! You scored {{score}} out of 10. Just one more perfect score and you can move on!
+      <a href="{{ url_for('learn')}}">
+        Continue
+      </a>
         {% else %}
         You scored {{score}} out of 10.  Please try again.
+      <a href="{{ url_for('learn')}}">
+        Continue
+      </a>
         {% endif %}
+
       </h4>
-      <form id="redirect" action="">
-      <input type="button" value="Continue" onclick="s()">
-      </form>
-      <script>
-        function s(){
-        var pgUrl = document.URL.split("/");
-        var nextUrl = pgUrl.slice(0,pgUrl.length-1).join("/")
-        {% if passed %}
-          nextUrl = nextUrl+"/story"+{{ part }}
-        {% else %}
-          nextUrl = nextUrl+"/memorytest"
-        {% endif %}
-        document.getElementById("redirect").action = nextUrl
-        document.getElementById("redirect").submit();
-        }
-
-
-      </script>
-
 
 {% endblock %}

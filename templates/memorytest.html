@@ -5,28 +5,15 @@
 {% block inbody %}
       <h1>What was here?</h1>
       <img src={{ image_source }} alt="Image goes here">
-      <form name="answerform" action="" method="POST">
-        <input type="radio" value="0" name="gr"> {{ choices[0] }}
+      <form name="answerform" action="{{ url_for(check_answer) }}" method="POST">
+        <input type="radio" value="A" name="gr"> {{ choices[0] }}
         <br>
-        <input type="radio" value="1" name="gr"> {{ choices[1] }}
+        <input type="radio" value="B" name="gr"> {{ choices[1] }}
         <br>
-        <input type="radio" value="2" name="gr"> {{ choices[2] }}
+        <input type="radio" value="C" name="gr"> {{ choices[2] }}
         <br>
-        <input type="radio" value="3" name="gr"> {{ choices[3] }}
+        <input type="radio" value="D" name="gr"> {{ choices[3] }}
         <br>
-        <input type="hidden" name="correctness" value="wrong">
-        <br>
-        
+        <input type="submit" value="Submit">
       </form> 
-      <input id="sub" type="button" value="Submit" onclick="checkAnswer()" >
-      <script>
-      
-      function checkAnswer() {
-        var x = document.forms["answerform"]["gr"].value;
-        if(x == ""+{{ correct_ans }}){
-          document.forms["answerform"]["correctness"].value = "correct";
-        }
-        document.forms["answerform"].submit();
-      }
-      </script>
 {% endblock %}
