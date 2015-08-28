@@ -83,14 +83,6 @@ def make_learn_question(current_task):
     next_line.correct_response = letters[correct]
     return choices, letters[correct], img_src
 
-def process_line(story_line):
-    is_question = (story_line.split("|")[0] == "Q")
-    if is_question:
-        line = story_line.split("|")[1:]
-    else:
-        line = story_line
-    return is_question, line
-
 # main application object
 app = Flask(__name__)
 # the next_line object collects the data that needs to be written to the
@@ -189,7 +181,11 @@ def story():
         next_line.stimulus = q_info[1]+"-"+q_info[2]
         next_line.correct_response = q_info[0]
         return render_template("story.html", probes=q_info[1:], is_question=is_question) 
-    return render_template("story.html", story_text=story_line, is_question=is_question)
+    else:
+        l_info = story_line.split("|")
+        redirect_time = int(l_info[-1])
+        story_text = l_info[0]
+        return render_template("story.html", story_text=story_text, is_question=is_question, redirect_time=redirect_time)
 
 
 @app.route('/finish')

@@ -1,8 +1,8 @@
-sds vuikyghv
-sdsd2 ygy
+sds vuikyghv|3000
+sdsd2 ygy|3000
 Q|N|one|no
-And anywhere that bobby went 
-His lamb was sure to go 
+And anywhere that bobby went|3000 
+His lamb was sure to go|3000
 Q|Y|two|yes
-And if his lamb went missing
-then bobby would be sad
+And if his lamb went missing|3000
+then bobby would be sad|3000

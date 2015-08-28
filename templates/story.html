@@ -30,6 +30,10 @@
       <h1>Storytime:</h2>
       <br>
        <h4> {{story_text}}</h4>
-       <a href="{{ url_for('story') }}"> Continue </a>
+       <script>
+          setTimeout(function(){ 
+            window.location.href = "{{ url_for('story') }}";
+          }, parseInt("{{redirect_time}}"))
+       </script>
       {% endif %}
 {% endblock %}

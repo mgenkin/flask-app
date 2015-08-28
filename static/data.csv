@@ -1,0 +1,23 @@
+RT,anger,task,date,stimulus,correct_response,accuracy,id,block,response
+8169,False,Learning Phase,2015-08-28,havarti,B,1,0,0,B
+2039,False,Learning Phase,2015-08-28,cheddar,A,1,0,0,A
+2852,False,Learning Phase,2015-08-28,cheddar,D,1,0,0,D
+1601,False,Learning Phase,2015-08-28,brie,C,1,0,0,C
+2183,False,Learning Phase,2015-08-28,swiss,D,1,0,0,D
+1882,False,Learning Phase,2015-08-28,brie,D,1,0,0,D
+1769,False,Learning Phase,2015-08-28,provolone,A,1,0,0,A
+2160,False,Learning Phase,2015-08-28,swiss,C,1,0,0,C
+1955,False,Learning Phase,2015-08-28,swiss,C,1,0,0,C
+1352,False,Learning Phase,2015-08-28,cheddar,B,1,0,0,B
+2056,False,Learning Phase,2015-08-28,provolone,C,1,0,1,C
+1957,False,Learning Phase,2015-08-28,havarti,C,1,0,1,C
+1968,False,Learning Phase,2015-08-28,cheddar,A,1,0,1,A
+4062,False,Learning Phase,2015-08-28,brie,C,1,0,1,C
+3312,False,Learning Phase,2015-08-28,brie,A,1,0,1,A
+1994,False,Learning Phase,2015-08-28,havarti,C,1,0,1,C
+1721,False,Learning Phase,2015-08-28,provolone,D,1,0,1,D
+2627,False,Learning Phase,2015-08-28,brie,C,1,0,1,C
+1567,False,Learning Phase,2015-08-28,brie,D,1,0,1,D
+1490,False,Learning Phase,2015-08-28,brie,D,1,0,1,D
+4803,False,TASK0,2015-08-28,one-no,N,0,0,0,Y
+2867,False,TASK0,2015-08-28,two-yes,Y,1,0,0,Y

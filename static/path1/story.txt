@@ -1,8 +1,8 @@
-Bobby was a purple rat
-His tail was white as snow
+Bobby was a purple rat|3000
+His tail was white as snow|3000
 Q|N|bobby|tail
-And asdsa that bobby went 
-His lamb was sure to go 
+And asdsa that bobby went|3000
+His lamb was sure to go|3000
 Q|Y|provolone|cheddar
-And if his lamb went missing
-then bobby would be sad
+And if his lamb went missing|3000
+then bobby would be sad|3000
